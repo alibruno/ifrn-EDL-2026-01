@@ -58,22 +58,48 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     @Override
     public Object topRed() throws PilhaVaziaExcecao {
-        return null;
+        if (isEmptyRed()) {
+            throw new PilhaVaziaExcecao("A Pilha está vazia");
+        }
+        return data[redIndex];
     }
 
     @Override
     public Object topBlack() throws PilhaVaziaExcecao {
-        return null;
+        if (isEmptyBlack()) {
+            throw new PilhaVaziaExcecao("A Pilha está vazia");
+        }
+        return data[blackIndex];
     }
 
     @Override
-    public int size() {
+    public int sizeAll() {
         return redSize + blackSize;
     }
 
     @Override
-    public boolean isEmpty() {
+    public int sizeRed() {
+        return redSize;
+    }
+
+    @Override
+    public int sizeBlack() {
+        return blackSize;
+    }
+
+    @Override
+    public boolean isEmptyAll() {
         return redSize == 0 && blackSize == 0;
+    }
+
+    @Override
+    public boolean isEmptyRed() {
+        return sizeRed() == 0;
+    }
+
+    @Override
+    public boolean isEmptyBlack() {
+        return sizeBlack() == 0;
     }
 
     private void increaseCapacity() {

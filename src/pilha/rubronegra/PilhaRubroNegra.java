@@ -1,9 +1,17 @@
 package pilha.rubronegra;
 
 public interface PilhaRubroNegra {
-    int size();
+    int sizeAll();
 
-    boolean isEmpty();
+    int sizeRed();
+
+    int sizeBlack();
+
+    boolean isEmptyAll();
+
+    boolean isEmptyRed();
+
+    boolean isEmptyBlack();
 
     Object topRed() throws PilhaVaziaExcecao;
 
