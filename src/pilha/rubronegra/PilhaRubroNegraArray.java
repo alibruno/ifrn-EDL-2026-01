@@ -78,14 +78,15 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     private void increaseCapacity() {
         Object[] new_data = new Object[capacity *= 2];
-        // Cópia da pilha vermelha
+        // Copy elements from the red stack
         for (int i = 0; i < redSize; i++) {
             new_data[i] = data[i];
         }
-        // Cópia da pilha preta
+        // Copy elements from the black stack
         int auxIndex = capacity - blackSize;
+        int oldBlackIndex = blackIndex;
         for (int i = 0; i < blackSize; i++) {
-            new_data[auxIndex++] = data[blackIndex++];
+            new_data[auxIndex++] = data[oldBlackIndex++];
         }
         blackIndex = capacity - blackSize;
         data = new_data;
