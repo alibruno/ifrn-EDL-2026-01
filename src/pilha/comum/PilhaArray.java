@@ -9,11 +9,11 @@ public class PilhaArray implements Pilha {
     private int increment;
 
     public PilhaArray(int capacity, int increment) {
+        this.index = -1;
         this.capacity = capacity;
-        index = -1;
-        this.increment = increment;
-        if (increment <= 0)
-            this.increment = 0;
+        this.increment = 0;
+        if (increment > 0)
+            this.increment = increment;
         data = new Object[capacity];
     }
 
@@ -45,14 +45,18 @@ public class PilhaArray implements Pilha {
     }
 
     private void increaseCapacity() {
-        if (increment == 0)
-            capacity *= 2;
-        else
-            capacity += increment;
+        capacity = calculateNewCapacity();
         Object[] new_data = new Object[capacity];
         for (int i = 0; i < data.length; i++)
             new_data[i] = data[i];
         data = new_data;
+    }
+
+    private int calculateNewCapacity() {
+        if (increment == 0)
+            return capacity *= 2;
+        else
+            return capacity += increment;
     }
 
     @Override
