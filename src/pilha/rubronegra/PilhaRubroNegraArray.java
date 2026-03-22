@@ -42,24 +42,32 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     @Override
     public Object popRed() throws PilhaVaziaExcecao {
-        if ((redSize + blackSize) * 3 <= capacity) {
+        if (isEmptyRed()) {
+            throw new PilhaVaziaExcecao("Red Stack is empty");
+        }
+        if (((redSize - 1) + blackSize) * 3 <= capacity) {
             reduceCapacity();
         }
-        return null;
+        redSize--;
+        return data[redIndex--];
     }
 
     @Override
     public Object popBlack() throws PilhaVaziaExcecao {
-        if ((redSize + blackSize) * 3 <= capacity) {
+        if (isEmptyBlack()) {
+            throw new PilhaVaziaExcecao("Black Stack is empty");
+        }
+        if ((redSize + (blackSize - 1)) * 3 <= capacity) {
             reduceCapacity();
         }
-        return null;
+        blackSize--;
+        return data[blackIndex++];
     }
 
     @Override
     public Object topRed() throws PilhaVaziaExcecao {
         if (isEmptyRed()) {
-            throw new PilhaVaziaExcecao("A Pilha está vazia");
+            throw new PilhaVaziaExcecao("Red Stack is empty");
         }
         return data[redIndex];
     }
@@ -67,7 +75,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     @Override
     public Object topBlack() throws PilhaVaziaExcecao {
         if (isEmptyBlack()) {
-            throw new PilhaVaziaExcecao("A Pilha está vazia");
+            throw new PilhaVaziaExcecao("Black Stack is empty");
         }
         return data[blackIndex];
     }
@@ -104,6 +112,15 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     private void increaseCapacity() {
         Object[] new_data = new Object[capacity *= 2];
+        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data);
+    }
+
+    private void reduceCapacity() {
+        Object[] new_data = new Object[capacity /= 2];
+        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data);
+    }
+
+    private Object[] copyRedAndBlackStacksElementsNewArray(Object[] data, Object[] new_data) {
         // Copy elements from the red stack
         for (int i = 0; i < redSize; i++) {
             new_data[i] = data[i];
@@ -115,11 +132,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
             new_data[auxIndex++] = data[oldBlackIndex++];
         }
         blackIndex = capacity - blackSize;
-        data = new_data;
-    }
-
-    private void reduceCapacity() {
-
+        return new_data;
     }
 
     @Override
