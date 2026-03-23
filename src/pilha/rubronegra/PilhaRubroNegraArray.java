@@ -111,27 +111,33 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     private void increaseCapacity() {
-        Object[] new_data = new Object[capacity *= 2];
-        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data);
+        int newCapacity = capacity*2;
+        Object[] new_data = new Object[newCapacity];
+        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data, newCapacity);
+        capacity = newCapacity;
     }
 
     private void reduceCapacity() {
-        Object[] new_data = new Object[capacity /= 2];
-        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data);
+        int newCapacity = capacity/2;
+        Object[] new_data = new Object[newCapacity];
+        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data, newCapacity);
+        capacity = newCapacity;
     }
 
-    private Object[] copyRedAndBlackStacksElementsNewArray(Object[] data, Object[] new_data) {
+    private Object[] copyRedAndBlackStacksElementsNewArray(Object[] data, Object[] new_data, int newCapacity) {
         // Copy elements from the red stack
         for (int i = 0; i < sizeRed(); i++) {
             new_data[i] = data[i];
         }
         // Copy elements from the black stack
-        int auxIndex = capacity - sizeBlack();
-        int oldBlackIndex = blackIndex;
-        for (int i = 0; i < sizeBlack(); i++) {
-            new_data[auxIndex++] = data[oldBlackIndex++];
+
+        int auxIndex = newCapacity-1;
+        int oldIndex = capacity-1;
+        for(int i = 0; i<sizeBlack(); i++){
+            new_data[auxIndex--] = data[oldIndex--];
         }
-        blackIndex = capacity - sizeBlack();
+
+        blackIndex = auxIndex+1;
         return new_data;
     }
 
