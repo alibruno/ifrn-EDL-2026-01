@@ -3,12 +3,17 @@ package pilha.rubronegra;
 import java.util.Arrays;
 
 public class PilhaRubroNegraArray implements PilhaRubroNegra {
+
+    //Atributos da classe
     private Object[] data;
     private int redIndex;
     private int blackIndex;
     private int capacity;
 
+    //Construtor
     public PilhaRubroNegraArray(int capacity) {
+
+        // Se a pilha não pode ter uma capacidade menor que 0
         if (capacity <= 0) {
             throw new IllegalArgumentException("capacity must be greater than 0");
         }
@@ -19,6 +24,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Método para adicionar um objeto na pilha vermelha
     public void pushRed(Object o) {
         redIndex++;
         if ((redIndex + (capacity-blackIndex)) == capacity) {
@@ -28,6 +34,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Método para adiconar um objeto na pilha preta
     public void pushBlack(Object o) {
         blackIndex--;
         if (redIndex + (capacity-blackIndex) == capacity) {
@@ -37,6 +44,9 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Método para remoção de um objeto da pilha vermelha
+    // A remoção ocorre no topo da pilha
+    // Esse método pode gerar uma excessão, visto que não é possível remover elementos de uma pilha vazia
     public Object popRed() throws PilhaVaziaExcecao {
         if (isEmptyRed()) {
             throw new PilhaVaziaExcecao("Red Stack is empty");
@@ -51,7 +61,11 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Método para a remoção de um objeto da pilha preta
+    // A remoção ocorre no topo da pilha (da esqueda para a direita)
+    // Esse método pode gerar uma excessão, visto que não é possível remover elementos de uma pilha vazia
     public Object popBlack() throws PilhaVaziaExcecao {
+
         if (isEmptyBlack()) {
             throw new PilhaVaziaExcecao("Black Stack is empty");
         }
@@ -65,6 +79,8 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Mostra o elemento no topo da pilha VERMELHA
+    // Esse método pode gerar uma excessão caso não haja elementos na pilha
     public Object topRed() throws PilhaVaziaExcecao {
         if (isEmptyRed()) {
             throw new PilhaVaziaExcecao("Red Stack is empty");
@@ -73,6 +89,8 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Mostra o elemento no topo da pilha PRETA
+    // Esse método pode gerar uma excessão caso não haja elementos na pilha
     public Object topBlack() throws PilhaVaziaExcecao {
         if (isEmptyBlack()) {
             throw new PilhaVaziaExcecao("Black Stack is empty");
@@ -81,35 +99,43 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     }
 
     @Override
+    // Retorna o tamanho completo da pilha
     public int sizeAll() {
         return sizeRed() + sizeBlack();
     }
 
     @Override
+    // Retorna o tamanho da pilha vermelha
     public int sizeRed() {
         return redIndex + 1;
     }
 
     @Override
+    // Retorna o tamanho da pilha preta
     public int sizeBlack() {
         return capacity-blackIndex;
     }
 
     @Override
+    // Verifica se o array completo está vazio
     public boolean isEmptyAll() {
         return (sizeRed() == 0 && sizeBlack() == 0);
     }
 
     @Override
+    // Verifica se a pilha VERMELHA está vazia
     public boolean isEmptyRed() {
         return sizeRed() == 0;
     }
 
     @Override
+    // Verifica se a pilha PRETA está vazia
     public boolean isEmptyBlack() {
         return sizeBlack() == 0;
     }
 
+    // Método que aumente a capacidade do array
+    // Usa a estratégia de crescimento de DUPLICAÇÃO
     private void increaseCapacity() {
         int newCapacity = capacity*2;
         Object[] new_data = new Object[newCapacity];
@@ -117,6 +143,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         capacity = newCapacity;
     }
 
+    // Método de diminui a capacidade caso o tamanho de ambas as pilhas somadas sejam menou ou igual a 1/3
     private void reduceCapacity() {
         int newCapacity = capacity/2;
         Object[] new_data = new Object[newCapacity];
