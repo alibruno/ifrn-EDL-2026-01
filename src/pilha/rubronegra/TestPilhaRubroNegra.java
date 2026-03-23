@@ -2,17 +2,33 @@ package pilha.rubronegra;
 
 public class TestPilhaRubroNegra {
     public static void main(String[] args) {
-        System.out.println("Teste push()");
+        
+        System.out.println();
+        System.out.println(" ============================================= Teste push() =================================================");
+        System.out.println();
         testPush();
-        System.out.println("------------------------");
-        System.out.println("Teste increaseCapacity()");
+        System.out.println();
+        System.out.println("==============================================================================================================");
+        System.out.println();
+
+        System.out.println("======================================== Teste increaseCapacity() ============================================");
+        System.out.println();
         testIncreaseCapacity();
-        System.out.println("------------------------");
-        System.out.println("Teste top()");
+        System.out.println();
+        System.out.println("==============================================================================================================");
+        System.out.println();
+
+        System.out.println("=============================================== Teste top() ===================================================");
         testTop();
-        System.out.println("------------------------");
-        System.out.println("Teste pop()");
+        System.out.println();
+        System.out.println("===============================================================================================================");
+        System.out.println();
+
+        System.out.println("=============================================== Teste pop() ===================================================");
         testPop();
+        System.out.println("===============================================================================================================");
+        System.out.println();
+
     }
 
     private static void testPush() {
@@ -52,6 +68,7 @@ public class TestPilhaRubroNegra {
         }
         System.out.println(pilha);
     }
+
 
     private static void testTop() {
         PilhaRubroNegra pilha = new PilhaRubroNegraArray(10);
