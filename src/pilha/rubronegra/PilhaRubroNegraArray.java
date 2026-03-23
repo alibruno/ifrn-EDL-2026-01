@@ -6,8 +6,6 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     private Object[] data;
     private int redIndex;
     private int blackIndex;
-    private int redSize;
-    private int blackSize;
     private int capacity;
 
     public PilhaRubroNegraArray(int capacity) {
@@ -17,27 +15,25 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         this.data = new Object[capacity];
         this.redIndex = -1;
         this.blackIndex = capacity;
-        this.redSize = 0;
-        this.blackSize = 0;
         this.capacity = capacity;
     }
 
     @Override
     public void pushRed(Object o) {
-        if (redSize + blackSize == capacity) {
+        redIndex++;
+        if ((redIndex + (capacity-blackIndex)) == capacity) {
             increaseCapacity();
         }
-        data[++redIndex] = o;
-        redSize++;
+        data[redIndex] = o;
     }
 
     @Override
     public void pushBlack(Object o) {
-        if (redSize + blackSize == capacity) {
+        blackIndex--;
+        if (redIndex + (capacity-blackIndex) == capacity) {
             increaseCapacity();
         }
-        data[--blackIndex] = o;
-        blackSize++;
+        data[blackIndex] = o;
     }
 
     @Override
@@ -46,12 +42,12 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
             throw new PilhaVaziaExcecao("Red Stack is empty");
         }
 
-        redSize--;
-        if ((redSize + blackSize) * 3 <= capacity) {
+        redIndex--;
+        if ((sizeRed() + sizeBlack()) * 3 <= capacity) {
             reduceCapacity();
         }
         
-        return data[redIndex--];
+        return data[redIndex+1];
     }
 
     @Override
@@ -60,12 +56,12 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
             throw new PilhaVaziaExcecao("Black Stack is empty");
         }
 
-        blackSize--;
-        if ((redSize + blackSize) * 3 <= capacity) {
+        blackIndex++;
+        if ((sizeRed() + sizeBlack()) * 3 <= capacity) {
             reduceCapacity();
         }
         
-        return data[blackIndex++];
+        return data[blackIndex-1];
     }
 
     @Override
@@ -86,22 +82,22 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     @Override
     public int sizeAll() {
-        return redSize + blackSize;
+        return sizeRed() + sizeBlack();
     }
 
     @Override
     public int sizeRed() {
-        return redSize;
+        return redIndex + 1;
     }
 
     @Override
     public int sizeBlack() {
-        return blackSize;
+        return capacity-blackIndex;
     }
 
     @Override
     public boolean isEmptyAll() {
-        return redSize == 0 && blackSize == 0;
+        return (sizeRed() == 0 && sizeBlack() == 0);
     }
 
     @Override
@@ -126,16 +122,16 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
 
     private Object[] copyRedAndBlackStacksElementsNewArray(Object[] data, Object[] new_data) {
         // Copy elements from the red stack
-        for (int i = 0; i < redSize; i++) {
+        for (int i = 0; i < sizeRed(); i++) {
             new_data[i] = data[i];
         }
         // Copy elements from the black stack
-        int auxIndex = capacity - blackSize;
+        int auxIndex = capacity - sizeBlack();
         int oldBlackIndex = blackIndex;
-        for (int i = 0; i < blackSize; i++) {
+        for (int i = 0; i < sizeBlack(); i++) {
             new_data[auxIndex++] = data[oldBlackIndex++];
         }
-        blackIndex = capacity - blackSize;
+        blackIndex = capacity - sizeBlack();
         return new_data;
     }
 
