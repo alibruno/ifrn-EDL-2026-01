@@ -45,10 +45,12 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         if (isEmptyRed()) {
             throw new PilhaVaziaExcecao("Red Stack is empty");
         }
-        if (((redSize - 1) + blackSize) * 3 <= capacity) {
+
+        redSize--;
+        if ((redSize + blackSize) * 3 <= capacity) {
             reduceCapacity();
         }
-        redSize--;
+        
         return data[redIndex--];
     }
 
@@ -57,10 +59,12 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         if (isEmptyBlack()) {
             throw new PilhaVaziaExcecao("Black Stack is empty");
         }
-        if ((redSize + (blackSize - 1)) * 3 <= capacity) {
+
+        blackSize--;
+        if ((redSize + blackSize) * 3 <= capacity) {
             reduceCapacity();
         }
-        blackSize--;
+        
         return data[blackIndex++];
     }
 
