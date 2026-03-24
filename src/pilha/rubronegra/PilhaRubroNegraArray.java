@@ -26,21 +26,19 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     @Override
     // Método para adicionar um objeto na pilha vermelha
     public void pushRed(Object o) {
-        redIndex++;
-        if ((redIndex + (capacity-blackIndex)) == capacity) {
+        if (sizeRed() + sizeBlack() == capacity) {
             increaseCapacity();
         }
-        data[redIndex] = o;
+        data[++redIndex] = o;
     }
 
     @Override
     // Método para adiconar um objeto na pilha preta
     public void pushBlack(Object o) {
-        blackIndex--;
-        if (redIndex + (capacity-blackIndex) == capacity) {
+        if (sizeRed() + sizeBlack() == capacity) {
             increaseCapacity();
         }
-        data[blackIndex] = o;
+        data[--blackIndex] = o;
     }
 
     @Override
@@ -56,8 +54,8 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         if ((sizeRed() + sizeBlack()) * 3 <= capacity) {
             reduceCapacity();
         }
-        
-        return data[redIndex+1];
+
+        return data[redIndex + 1];
     }
 
     @Override
@@ -74,8 +72,8 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
         if ((sizeRed() + sizeBlack()) * 3 <= capacity) {
             reduceCapacity();
         }
-        
-        return data[blackIndex-1];
+
+        return data[blackIndex - 1];
     }
 
     @Override
@@ -113,7 +111,7 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     @Override
     // Retorna o tamanho da pilha preta
     public int sizeBlack() {
-        return capacity-blackIndex;
+        return capacity - blackIndex;
     }
 
     @Override
@@ -137,34 +135,34 @@ public class PilhaRubroNegraArray implements PilhaRubroNegra {
     // Método que aumente a capacidade do array
     // Usa a estratégia de crescimento de DUPLICAÇÃO
     private void increaseCapacity() {
-        int newCapacity = capacity*2;
+        int newCapacity = capacity * 2;
         Object[] new_data = new Object[newCapacity];
-        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data, newCapacity);
+        this.data = copyRedAndBlackStacksElementsToNewArray(this.data, new_data);
         capacity = newCapacity;
     }
 
     // Método de diminui a capacidade caso o tamanho de ambas as pilhas somadas sejam menou ou igual a 1/3
     private void reduceCapacity() {
-        int newCapacity = capacity/2;
+        int newCapacity = capacity / 2;
         Object[] new_data = new Object[newCapacity];
-        this.data = copyRedAndBlackStacksElementsNewArray(this.data, new_data, newCapacity);
+        this.data = copyRedAndBlackStacksElementsToNewArray(this.data, new_data);
         capacity = newCapacity;
     }
 
-    private Object[] copyRedAndBlackStacksElementsNewArray(Object[] data, Object[] new_data, int newCapacity) {
+    private Object[] copyRedAndBlackStacksElementsToNewArray(Object[] data, Object[] new_data) {
         // Copy elements from the red stack
         for (int i = 0; i < sizeRed(); i++) {
             new_data[i] = data[i];
         }
         // Copy elements from the black stack
 
-        int auxIndex = newCapacity-1;
-        int oldIndex = capacity-1;
-        for(int i = 0; i<sizeBlack(); i++){
+        int auxIndex = new_data.length - 1;
+        int oldIndex = capacity - 1;
+        for (int i = 0; i < sizeBlack(); i++) {
             new_data[auxIndex--] = data[oldIndex--];
         }
 
-        blackIndex = auxIndex+1;
+        blackIndex = auxIndex + 1;
         return new_data;
     }
 
