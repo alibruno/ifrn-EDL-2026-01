@@ -48,17 +48,20 @@ public class FilaEncadeada implements Fila {
 
     @Override
     public Object first() {
-        return null;
+        if (head == null) {
+            return null;
+        }
+        return head.element;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
