@@ -1,5 +1,7 @@
 package fila.encadeada;
 
+import pilha.rubronegra.PilhaVaziaExcecao;
+
 public class FilaEncadeada implements Fila {
     private No head;
     private No tail;
@@ -43,7 +45,18 @@ public class FilaEncadeada implements Fila {
 
     @Override
     public Object dequeue() {
-        return null;
+        if (head == null) {
+            throw new FilaVaziaException("Queue is empty");
+        }
+        Object temp = head.element;
+        if (size != 1) {
+            head = head.next;
+        } else {
+            head = null;
+            tail = null;
+        }
+        size--;
+        return temp;
     }
 
     @Override
