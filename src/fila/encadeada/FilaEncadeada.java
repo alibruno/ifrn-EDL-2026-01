@@ -19,21 +19,26 @@ public class FilaEncadeada implements Fila {
 
         public No(Object element) {
             this.element = element;
+            this.next = null;
         }
 
-        public Object getElement() {
-            return element;
-        }
-
-        public void setElement(Object o) {
-            element = o;
+        @Override
+        public String toString() {
+            return element.toString();
         }
     }
 
 
     @Override
     public void enqueue(Object o) {
-
+        No no = new No(o);
+        if (head == null) {
+            head = no;
+        } else {
+            tail.next = no;
+        }
+        tail = no;
+        size++;
     }
 
     @Override
@@ -54,5 +59,29 @@ public class FilaEncadeada implements Fila {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "FilaEncadeada{" +
+                "head=" + head +
+                ", tail=" + tail +
+                ", size=" + size +
+                ", No{" + allNodeElements() + "}" +
+                '}';
+    }
+
+    public String allNodeElements() {
+        if (head == null) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        No no = head;
+        while (no != null) {
+            sb.append(no.element).append(',').append(' ');
+            no = no.next;
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        return sb.toString();
     }
 }
