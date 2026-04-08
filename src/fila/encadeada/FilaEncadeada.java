@@ -1,7 +1,5 @@
 package fila.encadeada;
 
-import pilha.rubronegra.PilhaVaziaExcecao;
-
 public class FilaEncadeada implements Fila {
     private No head;
     private No tail;
@@ -87,7 +85,7 @@ public class FilaEncadeada implements Fila {
                 '}';
     }
 
-    public String allNodeElements() {
+    private String allNodeElements() {
         if (head == null) {
             return null;
         }
