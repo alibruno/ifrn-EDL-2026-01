@@ -60,7 +60,7 @@ public class FilaEncadeada implements Fila {
     @Override
     public Object first() {
         if (head == null) {
-            return null;
+            throw new FilaVaziaException("Queue is empty");
         }
         return head.element;
     }
