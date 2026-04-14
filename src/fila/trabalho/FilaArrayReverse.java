@@ -1,28 +1,26 @@
 package fila.trabalho;
 
-public class FilaArray implements Fila {
+public class FilaArrayReverse implements Fila {
     private Object[] elements;
-    private int head;
-    private int tail;
-    private int capacity;
+    private int head, tail, capacity;
     private final int increment;
+    private boolean isReversed;
 
-    public FilaArray(int capacity, int increment) {
+    public FilaArrayReverse(int capacity, int increment) {
         this.elements = new Object[capacity];
         this.head = 0;
         this.tail = 0;
-        this.capacity = capacity; //Tamanho
+        this.capacity = capacity;
         this.increment = increment;
+        this.isReversed = false;
     }
 
     public void enqueue(Object o) {
-        if (size() == capacity - 1) { // encheu coleguinha
-            int newCapacity;
-            if (increment == 0) {
-                newCapacity = capacity * 2;
-            } else {
-                newCapacity = capacity + increment;
-            }
+        if (size() == capacity - 1) {
+            int newCapacity = increment == 0 ?
+                    capacity * 2 :
+                    capacity + increment;
+
             Object[] newArray = new Object[newCapacity];
 
             int tempHead = head;
@@ -57,7 +55,6 @@ public class FilaArray implements Fila {
         }
         return elements[head];
     }
-
 
     public int size() {
         return (capacity - head + tail) % capacity;
