@@ -5,7 +5,7 @@ public class FilaArray implements Fila {
     private int head;
     private int tail;
     private int capacity;
-    private int increment;
+    private final int increment;
 
     public FilaArray(int capacity, int increment) {
         this.elements = new Object[capacity];
@@ -28,7 +28,6 @@ public class FilaArray implements Fila {
             int tempHead = head;
 
             for (int tempTail = 0; tempTail < size(); tempTail++) {
-
                 newArray[tempTail] = elements[tempHead];
                 tempHead = (tempHead + 1) % capacity;
             }
@@ -43,8 +42,9 @@ public class FilaArray implements Fila {
 
 
     public Object dequeue() {
-        if (isEmpty())
-            throw new FilaVaziaException("A Pilha está vazia");
+        if (isEmpty()) {
+            throw new FilaVaziaException("Queue is empty");
+        }
         Object temp = elements[head];
         head = (head + 1) % capacity;
         return temp;
@@ -52,6 +52,9 @@ public class FilaArray implements Fila {
 
     @Override
     public Object first() {
+        if (isEmpty()) {
+            throw new FilaVaziaException("Queue is empty");
+        }
         return elements[head];
     }
 
