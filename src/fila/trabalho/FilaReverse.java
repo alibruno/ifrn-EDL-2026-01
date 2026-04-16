@@ -1,9 +1,11 @@
 package fila.trabalho;
 
-public interface Fila {
+public interface FilaReverse {
     void enqueue(Object o);
 
     Object dequeue();
+
+    void reverse();
 
     Object first();
 
