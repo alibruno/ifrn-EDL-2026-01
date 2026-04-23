@@ -4,6 +4,7 @@
 
 ### 1. [Pilha](#pilha)
 ### 2. [Fila](#fila)
+### 3. [Vetor](#vetor)
 
 ## Pilha
 
@@ -51,3 +52,23 @@ Inserções e remoções seguem o esquema FIFO (First In, First Out)
 ### Atividades
 
 #### [Reversão em O(1)](src/fila/reverse/README.md)
+
+
+## Vetor
+
+### Introduçao
+
+O TAD Vetor extende a noção de arranjo(array) armazenando sequências de objetos arbitrários;
+
+Um elemento pode ser acessado, inserido ou removido através da especificação de sua colocação (rank).
+
+- Principais operações:
+  - `Object elemAtRank(int r)`: retorna o elemento na colocação r, sem removê-lo
+  - `Object replaceAtRank(int r, Object o)`: substitui o elemento na colocação r por o e retorna o antigo elemento
+  - `insertAtRank(int r, Object o)`: insere um novo elemento o na colocação r
+  - `Object removeAtRank(int r)`: remove e retorna o elemento na colocação r
+- Operações adicionais `size()` e `isEmpty()`
+
+### Implementações
+
+#### [Array](src/vetor/VectorArray.java)
