@@ -1,5 +1,7 @@
 package pilha.rubronegra;
 
+import pilha.PilhaVaziaExcecao;
+
 import java.util.Arrays;
 
 public class PilhaRubroNegraArray implements PilhaRubroNegra {

@@ -1,4 +1,6 @@
-package fila.array;
+package fila;
+
+import java.util.Arrays;
 
 public class FilaArray implements Fila {
     private Object[] elements;
@@ -13,6 +15,7 @@ public class FilaArray implements Fila {
         this.increment = increment;
     }
 
+    @Override
     public void enqueue(Object o) {
         if (size() == capacity - 1) { // encheu coleguinha
             int newCapacity = increment == 0 ? capacity * 2 : capacity + increment;
@@ -33,7 +36,7 @@ public class FilaArray implements Fila {
         tail = (tail + 1) % capacity;
     }
 
-
+    @Override
     public Object dequeue() {
         if (isEmpty()) {
             throw new FilaVaziaException("Queue is empty");
@@ -51,12 +54,24 @@ public class FilaArray implements Fila {
         return elements[head];
     }
 
-
+    @Override
     public int size() {
         return (capacity - head + tail) % capacity;
     }
 
+    @Override
     public boolean isEmpty() {
         return tail == head;
+    }
+
+    @Override
+    public String toString() {
+        return "FilaArray{" +
+                "elements=" + Arrays.toString(elements) +
+                ", head=" + head +
+                ", tail=" + tail +
+                ", capacity=" + capacity +
+                ", increment=" + increment +
+                '}';
     }
 }

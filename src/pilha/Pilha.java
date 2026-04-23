@@ -1,4 +1,4 @@
-package pilha.comum;
+package pilha;
 
 public interface Pilha {
     int size();

@@ -1,5 +1,7 @@
 package pilha.rubronegra;
 
+import pilha.PilhaVaziaExcecao;
+
 public interface PilhaRubroNegra {
     int sizeAll();
 

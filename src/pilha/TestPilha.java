@@ -1,4 +1,4 @@
-package pilha.comum;
+package pilha;
 
 public class TestPilha {
 

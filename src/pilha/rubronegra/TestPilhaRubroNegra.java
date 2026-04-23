@@ -1,5 +1,7 @@
 package pilha.rubronegra;
 
+import pilha.PilhaVaziaExcecao;
+
 public class TestPilhaRubroNegra {
     public static void main(String[] args) {
         

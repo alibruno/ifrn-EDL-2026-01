@@ -1,4 +1,4 @@
-package pilha.comum;
+package pilha;
 
 import java.util.Arrays;
 

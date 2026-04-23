@@ -1,4 +1,4 @@
-package fila.array;
+package fila;
 
 public interface Fila {
     void enqueue(Object o);

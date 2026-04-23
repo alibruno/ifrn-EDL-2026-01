@@ -1,4 +1,4 @@
-package fila.encadeada;
+package fila;
 
 public class FilaEncadeada implements Fila {
     private No head;
