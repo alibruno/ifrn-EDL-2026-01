@@ -24,7 +24,8 @@ Inserções e remoções seguem o esquema LIFO (Last In, First Out)
 
 #### [Array](src/pilha/PilhaArray.java)
 
-#### [Atividade - Pilha Rubro Negra](src/pilha/rubronegra/README.md)
+### Atividades
+#### [Pilha Rubro Negra](src/pilha/rubronegra/README.md)
 
 ## Fila
 
@@ -47,4 +48,6 @@ Inserções e remoções seguem o esquema FIFO (First In, First Out)
 
 #### [Lista simplesmente encadeada](src/fila/FilaEncadeada.java)
 
-#### [Atividade - Reversão em O(1)](src/fila/reverse/README.md)
+### Atividades
+
+#### [Reversão em O(1)](src/fila/reverse/README.md)
