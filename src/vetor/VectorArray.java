@@ -1,5 +1,7 @@
 package vetor;
 
+import java.util.Arrays;
+
 public class VectorArray implements Vector {
     private Object[] elements;
     private int head, tail, capacity;
@@ -154,5 +156,15 @@ public class VectorArray implements Vector {
         tail = size() - 1; // definir o novo final
         head = 0; // definir o novo inicio
         elements = newArray;
+    }
+
+    @Override
+    public String toString() {
+        return "VectorArray{" +
+                "elements=" + Arrays.toString(elements) +
+                ", head=" + elemAtRank(0) +
+                ", tail=" + elemAtRank(size() - 1) +
+                ", size=" + size() +
+                '}';
     }
 }
